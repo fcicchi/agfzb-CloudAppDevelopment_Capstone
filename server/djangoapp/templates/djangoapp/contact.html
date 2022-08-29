@@ -12,44 +12,20 @@
     <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
 
 </head>
-
 <body>
-    <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">Dealership Review</a>
+
+    {% include "djangoapp/navigationBar.html" %}
+    <br>
+    <div class="container">
+        <div class="card" style="width: 50%">
+            <div class="card-body">
+                <h5 class="card-title">Our contact information</h5>
+                <hr>
+                <p class="card-text">Address: 34 Addison Street Roswell, 123456</p>
+                <p class="card-text">Phone: +1 (800)-123-45678</p>
+                <a href="mailto:contact@dealershipreview.com" class="link">Mail to contact@dealershipreview.com</a>
             </div>
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a class="btn btn-link" href="{% url 'djangoapp:about' %}">About</a>
-                </li>
-                <li>
-                    <a class="btn btn-link" href="{% url 'djangoapp:contact' %}">Contact</a>
-                </li>
-                <li>
-                    <a class="btn btn-link" href="{% url 'djangoapp:index' %}">Home</a>
-                </li>
-            </ul>
         </div>
-    </nav>
-
-    <!-- Main section -->
-    <div class="col-lg-8 mx-auto p-3 py-md-5">
-        <main>
-            <h1>Our contact information:</h1>
-            <p class="fs-5 col-md-8">Available 24/7</p>
-
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">Address: 34 Addison Street Roswell, 123456</li>
-                <li class="list-group-item">Phone: +1 (800)-123-45678</li>
-            </ul>
-
-            <hr class="col-3 col-md-2 mb-5">
-
-            <div class="mb-5">
-                <a href="{% url 'djangoapp:index' %}" class="btn btn-success btn-lg px-4">Go back</a>
-            </div>
-        </main>
     </div>
 
     <!-- Footer -->
@@ -71,6 +47,6 @@
             </ul>
         </footer>
     </div>
+    
 </body>
-
 </html>

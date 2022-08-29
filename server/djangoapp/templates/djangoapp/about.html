@@ -12,31 +12,13 @@
     <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
 
 </head>
-
 <body>
-    <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">Dealership Review</a>
-            </div>
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a class="btn btn-link" href="{% url 'djangoapp:about' %}">About</a>
-                </li>
-                <li>
-                    <a class="btn btn-link" href="{% url 'djangoapp:contact' %}">Contact</a>
-                </li>
-                <li>
-                    <a class="btn btn-link" href="{% url 'djangoapp:index' %}">Home</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-    <h1>
-        Welcome to Best Cars dealership, home to the best cars in North America. We sell domestic and imported cars at reasonable prices.
-    </h1>
-
+    {% include "djangoapp/navigationBar.html" %}
+    <br>
+    <div class="container">
+        <h1 class="text-center card card-body">
+            Welcome to Best Cars dealership, home to the best cars in North America. We sell domestic and imported cars at reasonable prices.
+        </h1>
+    </div>
 </body>
-
 </html>
