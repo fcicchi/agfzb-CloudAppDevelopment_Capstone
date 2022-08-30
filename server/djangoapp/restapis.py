@@ -13,11 +13,7 @@ def get_request(url, **kwargs):
     print("GET from {} ".format(url))
 
     try:
-        # no authentication GET
-        if api_key:
-            response = requests.get(url, headers={'Content-Type': 'application/json'}, auth=HTTPBasicAuth('apikey', api_key), params=kwargs)
-        else:
-            response = requests.get(url, headers={'Content-Type': 'application/json'}, params=kwargs)
+        response = requests.get(url, headers={'Content-Type': 'application/json'}, params=kwargs)
     except:
         # If any error occurs
         print("Network exception occurred")
@@ -122,7 +118,7 @@ def get_dealer_reviews_from_cf(url,dealerId):
                                       purchase_date=review["purchase_date"],car_make=review["car_make"],
                                       car_model=review["car_model"],car_year=review["car_year"],
                                       sentiment=sentiment)
-            review_obj.sentiment = analyze_review_sentiments(review_obj.review)
+            #review_obj.sentiment = analyze_review_sentiments(review_obj.review)
             results.append(review_obj)
     return results
 
