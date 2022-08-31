@@ -4,7 +4,7 @@ from .models import CarDealer, DealerReview
 from requests.auth import HTTPBasicAuth
 
 # Watson NLU API configuration values
-watson_nlu_api_base_url = "https://api.eu-gb.natural-language-understanding.watson.cloud.ibm.com/instances/bc906088-fbeb-40cd-abd5-3738474659aa"
+watson_nlu_api_base_url = "https://api.eu-gb.natural-language-understanding.watson.cloud.ibm.com/instances/bc906088-fbeb-40cd-abd5-3738474659aa/v1/analyze"
 watson_nlu_api_key = "4aBlw6qGio3BCXSIjb6ReuOYTAsAQQBbd-pWUtfsVS7W"
 watson_nlu_api_version = '2021-08-01'
 
@@ -13,7 +13,8 @@ def get_request(url, **kwargs):
     print("GET from {} ".format(url))
 
     try:
-        response = requests.get(url, headers={'Content-Type': 'application/json'}, params=kwargs)
+        response = requests.get(url, params=params, headers={'Content-Type': 'application/json'},
+                                    auth=HTTPBasicAuth('apikey', watson_nlu_api_key))    
     except:
         # If any error occurs
         print("Network exception occurred")
@@ -118,22 +119,19 @@ def get_dealer_reviews_from_cf(url,dealerId):
                                       purchase_date=review["purchase_date"],car_make=review["car_make"],
                                       car_model=review["car_model"],car_year=review["car_year"],
                                       sentiment=sentiment)
-            #review_obj.sentiment = analyze_review_sentiments(review_obj.review)
+            review_obj.sentiment = analyze_review_sentiments(review_obj.review)
             results.append(review_obj)
     return results
 
 def analyze_review_sentiments(text):
-    url = watson_nlu_api_base_url + "/analyze"
-    api_key = watson_nlu_api_key
-    version = watson_nlu_api_version   
     features = {"sentiment" : {}}    
     params = dict()
     params["text"] = text
-    params["version"] = version
+    params["version"] = watson_nlu_api_version
     params["features"] = features
     params["return_analyzed_text"] = True
 
-    response = get_request(url, params=params, headers={'Content-Type': 'application/json'}, auth=HTTPBasicAuth('apikey', api_key))
+    response = get_request(watson_nlu_api_base_url, params=params, headers={'Content-Type': 'application/json'}, auth=HTTPBasicAuth('apikey', watson_nlu_api_key))
     if "error" in response:
         return "neutral"
     else:
