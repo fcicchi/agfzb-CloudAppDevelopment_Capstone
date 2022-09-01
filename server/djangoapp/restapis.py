@@ -4,9 +4,8 @@ from .models import CarDealer, DealerReview
 from requests.auth import HTTPBasicAuth
 
 # Watson NLU API configuration values
-watson_nlu_api_base_url = "https://api.eu-gb.natural-language-understanding.watson.cloud.ibm.com/instances/bc906088-fbeb-40cd-abd5-3738474659aa/v1/analyze"
+watson_nlu_api_base_url = "https://api.eu-gb.natural-language-understanding.watson.cloud.ibm.com/instances/bc906088-fbeb-40cd-abd5-3738474659aa/v1/analyze?version=2021-08-01"
 watson_nlu_api_key = "4aBlw6qGio3BCXSIjb6ReuOYTAsAQQBbd-pWUtfsVS7W"
-watson_nlu_api_version = '2021-08-01'
 
 def get_request(url, **kwargs):
     print(kwargs)
@@ -124,14 +123,13 @@ def get_dealer_reviews_from_cf(url,dealerId):
     return results
 
 def analyze_review_sentiments(text):
-    features = {"sentiment" : {}}    
-    params = dict()
-    params["text"] = text
-    params["version"] = watson_nlu_api_version
-    params["features"] = features
-    params["return_analyzed_text"] = True
+    response = get_request(watson_nlu_api_base_url
+        , text = text
+        , features = {"sentiment" : {}}
+        , return_analyzed_text = True)
 
-    response = get_request(watson_nlu_api_base_url, params=params, headers={'Content-Type': 'application/json'}, auth=HTTPBasicAuth('apikey', watson_nlu_api_key))
+    print("Watson Response {}".format(response))
+
     if "error" in response:
         return "neutral"
     else:
